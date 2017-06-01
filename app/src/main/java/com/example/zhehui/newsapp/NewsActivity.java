@@ -3,12 +3,15 @@ package com.example.zhehui.newsapp;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,13 +31,13 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
             "https://content.guardianapis.com/search?q=esports&api-key=test";
 
     /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
+     * Constant value for the story loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int STORY_LOADER_ID = 1;
 
     /**
-     * Adapter for the list of earthquakes
+     * Adapter for the list of stories.
      */
     private NewsAdapter mAdapter;
 
@@ -49,7 +52,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        // Setup list view.s
+        // Setup list views
         ListView bookListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
@@ -57,6 +60,18 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         mAdapter = new NewsAdapter(this, new ArrayList<Story>());
         bookListView.setAdapter(mAdapter);
+
+        // Set an item click listener on the ListView, which sends an intent to a web browser
+        // to open a website with more information about the selected story.
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Story currentStory = mAdapter.getItem(position);
+                Uri storyWebUri = Uri.parse(currentStory.getWebURL());
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, storyWebUri);
+                startActivity(websiteIntent);
+            }
+        });
 
         // Check network connectivity.
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -80,15 +95,15 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Story>> loader, List<Story> books) {
+    public void onLoadFinished(Loader<List<Story>> loader, List<Story> stories) {
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
         mEmptyStateTextView.setText(R.string.no_news_found);
 
         mAdapter.clear();
-        if (books != null && !books.isEmpty()) {
-            mAdapter.addAll(books);
+        if (stories != null && !stories.isEmpty()) {
+            mAdapter.addAll(stories);
         }
     }
 
