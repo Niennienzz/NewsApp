@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<Story> {
+
     /**
      * Log tag.
      */
@@ -60,4 +61,5 @@ public class NewsAdapter extends ArrayAdapter<Story> {
         // Return the list item view that is now showing the appropriate data.
         return listItemView;
     }
+
 }

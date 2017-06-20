@@ -28,7 +28,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <!-- Loading indicator is only shown before the first load -->
+    <!-- Loading indicator is only shown before the first load. -->
     <ProgressBar
         android:id="@+id/loading_indicator"
         style="@style/Widget.AppCompat.ProgressBar"

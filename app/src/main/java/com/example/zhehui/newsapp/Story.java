@@ -1,6 +1,7 @@
 package com.example.zhehui.newsapp;
 
 public class Story {
+
     /**
      * Story information member fields.
      */
@@ -31,4 +32,5 @@ public class Story {
     public String getWebURL() {
         return mWebURL;
     }
+
 }

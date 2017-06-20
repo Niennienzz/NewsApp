@@ -6,13 +6,14 @@ import android.content.Context;
 import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<Story>> {
+
     /**
-     * Tag for log messages
+     * Tag for log messages.
      */
     private static final String LOG_TAG = NewsLoader.class.getName();
 
     /**
-     * Query URL
+     * Query URL.
      */
     private String mUrl;
 
@@ -44,4 +45,5 @@ public class NewsLoader extends AsyncTaskLoader<List<Story>> {
         // Perform the network request, parse the response, and extract a list of books.
         return QueryUtils.fetchStoryData(mUrl);
     }
+
 }

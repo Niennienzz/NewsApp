@@ -185,4 +185,5 @@ public final class QueryUtils {
         // Return the list of stories.
         return stories;
     }
+
 }

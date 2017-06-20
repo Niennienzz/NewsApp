@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<List<Story>> {
+
     /**
      * Log tag.
      */
@@ -52,7 +53,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        // Setup list views
+        // Setup list view.
         ListView bookListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
@@ -111,4 +112,5 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
     public void onLoaderReset(Loader<List<Story>> loader) {
         mAdapter.clear();
     }
+
 }
